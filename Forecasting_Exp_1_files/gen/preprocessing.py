@@ -20,15 +20,21 @@ def smoother_scaler(train_data, val_data, test_data, EMA, gamma):
 	"""
 	train_data: [type: pandas DataFrame]
 	"""
+	
 	train_data_sm_sc = pd.DataFrame()
 	val_data_sm_sc = pd.DataFrame()
 	test_data_sm_sc = pd.DataFrame()
 
+	if val_data.shape[0] == 0:
+		val = 0
+	else: 
+		val = 1
+	
 	for col in train_data.columns:
 		scaler = MinMaxScaler()
 		
 		train_col = np.asarray(scaler.fit_transform(np.asarray(train_data[col]).reshape(-1, 1)))
-		val_col = np.asarray(scaler.transform(np.asarray(val_data[col]).reshape(-1, 1)))
+		if val: val_col = np.asarray(scaler.transform(np.asarray(val_data[col]).reshape(-1, 1)))
 		test_col = np.asarray(scaler.transform(np.asarray(test_data[col]).reshape(-1, 1)))
 						
 		for i in range(len(train_col)):
@@ -36,11 +42,11 @@ def smoother_scaler(train_data, val_data, test_data, EMA, gamma):
 			train_col[i] = EMA
 					
 		train_col = train_col.reshape(-1)
-		val_col = val_col.reshape(-1)
+		if val: val_col = val_col.reshape(-1)
 		test_col = test_col.reshape(-1)
 					
 		train_data_sm_sc[col] = train_col
-		val_data_sm_sc[col] = val_col
+		if val: val_data_sm_sc[col] = val_col
 		test_data_sm_sc[col] = test_col
 
 	return (train_data_sm_sc, val_data_sm_sc, test_data_sm_sc)

@@ -15,16 +15,16 @@ def build_NN(train_data, batch_size, dropout):
 	regressior = Sequential()
 
 	input_shape = (train_data.shape[1], train_data.shape[2])
-	regressior.add(LSTM(units = 20, activation = 'tanh', return_sequences = True, input_shape = input_shape))
+	regressior.add(LSTM(units = 256, activation = 'relu', return_sequences = True, input_shape = input_shape))
 	regressior.add(Dropout(dropout))
 
-	regressior.add(LSTM(units = 20, activation = 'tanh', return_sequences = True))
+	regressior.add(LSTM(units = 512, activation = 'relu', return_sequences = False))
 	regressior.add(Dropout(dropout))
 
-	regressior.add(LSTM(units = 60, activation = 'tanh', return_sequences = True))
-	regressior.add(Dropout(dropout))
+	# regressior.add(LSTM(units = 40, activation = relu, return_sequences = True))
+	# regressior.add(Dropout(dropout))
 
-	regressior.add(Flatten())
+	# regressior.add(Flatten())
 
 	regressior.add(Dense(units=1))
 
@@ -97,8 +97,9 @@ def model_mixer(train_data, batch_size, dropout, activation_case, layer_case, un
 
 
 	# Add Flatten and Dense layers to all Models
-	model.add(Flatten())
+	# model.add(Flatten())
 	model.add(Dense(units=1))
+	
 	model.summary()	
 	
 	return model
