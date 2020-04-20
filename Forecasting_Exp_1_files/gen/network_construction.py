@@ -15,10 +15,10 @@ def build_NN(train_data, batch_size, dropout):
 	regressior = Sequential()
 
 	input_shape = (train_data.shape[1], train_data.shape[2])
-	regressior.add(LSTM(units = 256, activation = 'relu', return_sequences = True, input_shape = input_shape))
+	regressior.add(LSTM(units = 64, activation = 'tanh', return_sequences = True, input_shape = input_shape))
 	regressior.add(Dropout(dropout))
 
-	regressior.add(LSTM(units = 512, activation = 'relu', return_sequences = False))
+	regressior.add(LSTM(units = 128, activation = 'tanh', return_sequences = False))
 	regressior.add(Dropout(dropout))
 
 	# regressior.add(LSTM(units = 40, activation = relu, return_sequences = True))
@@ -26,7 +26,7 @@ def build_NN(train_data, batch_size, dropout):
 
 	# regressior.add(Flatten())
 
-	regressior.add(Dense(units=1))
+	regressior.add(Dense(units=1, activation = 'tanh'))
 
 	regressior.summary()
 

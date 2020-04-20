@@ -1,4 +1,5 @@
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.metrics import classification_report
 from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
@@ -68,6 +69,12 @@ def evaluate_performance(model, train_data_raw, test_data_raw, train_data_sm_sc,
 	plt.subplots_adjust(hspace = 0.5)
 	# Visualizing autocorrelation
 
+	# Check if Close_diff... and remove NaN values
+	if 'Close_diff' in y_col:
+		y_pred = y_pred[:-1]
+		y_test = y_test[:-1] # Contains NaN as last value
+		close_diff_dir_evaluation(y_pred, y_test)
+		
 	x_corr = signal.correlate(y_test, y_pred, mode='full')
 		
 	horiz = np.array(range(x_corr.shape[0]))
@@ -79,7 +86,6 @@ def evaluate_performance(model, train_data_raw, test_data_raw, train_data_sm_sc,
 	x_corr_max_x = np.argmax(x_corr) - y_test.shape[0]
 	x_corr_max_y = x_corr.max()
 	
-
 	axs[1].plot([x_corr_max_x], [x_corr_max_y], marker='o', color='r',
 		label=('lag: '+str(x_corr_max_x))) # 
 
@@ -88,3 +94,12 @@ def evaluate_performance(model, train_data_raw, test_data_raw, train_data_sm_sc,
 	plt.show()
 	
 	return y_pred, fig
+
+def close_diff_dir_evaluation(y_pred, y_test):
+	y_pred_sign = np.sign(y_pred)
+	y_test_sign = np.sign(y_test)
+	
+	print(classification_report(y_test_sign, y_pred_sign))
+	
+	return
+	
