@@ -1,5 +1,9 @@
 */.ipynb_checkpoints/*
-Forecasting_Exp_1/API_keys.py
-Forecasting_Exp_1/Forecasting_Exp_1_Data/
 */__pycache__/*
+Forecasting_Exp_1/API_keys.py
 Forecasting_Exp_1/Forecasting_Exp_1_files/gen/__pycache__
+Forecasting_Exp_2/API_keys.py
+Forecasting_Exp_1/Forecasting_Exp_1_Data/
+Forecasting_Exp_2/data_cache
+Forecasting_Exp_2/tickers/
+Forecasting_Exp_2/alphavantage_datapull/__pycache__/
