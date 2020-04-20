@@ -1,0 +1,43 @@
+=== Function Appendix ===
+
+function sp500_tickers
+
+function sp500_yahoo
+
+function update_data
+
+=== Saved Data ===
+
++ sp500tickers.picke
+
++
+
+=== Known Working Package Versions ===
+
+python: 3.7.3 (default, Apr 24 2019, 15:29:51) [MSC v.1915 64 bit (AMD64)]
+pandas: 0.25.1
+numpy: 1.16.5
+pandas_datareader: 0.8.1
+requests: 2.22.0
+bs4: 4.8.0
+
+=== Function Documentation ===
+
++ function sp500_tickers
+
+    Input: None
+    Returns: 
+        1) S&P 500 tickers as a [type] list with entries as [type] strings 
+
++ function sp500_yahoo
+
+    Input: 
+        1) S&P 500 tickers as a [type] list with entries as [type] strings 
+        2) start date of desired data (format: year-mo-day as [type] datetime.date) 
+        3) end date of desired data (format: year-mo-day as [type] datetime.date)
+    Returns:
+
++ function update_data
+    
+    Input:
+    Returns:
