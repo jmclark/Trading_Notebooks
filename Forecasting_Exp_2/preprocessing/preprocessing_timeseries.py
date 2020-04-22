@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import copy
 
 def ltsm_sequence_generator(train_data, seq_length, y_col):
@@ -33,7 +34,7 @@ def join_timeseries(df_list, fill_nan_fwd = 1, snip_incomplete = 1):
 		df_joined = df_list[0]
 		for df in df_list[1:]:
 			df_joined = df_joined.merge(df, how='outer', on='date', sort=True) 
-		
+		 
 		
 	if fill_nan_fwd != 0:
 		df_joined.fillna(method='ffill', inplace=True)    
@@ -44,7 +45,10 @@ def join_timeseries(df_list, fill_nan_fwd = 1, snip_incomplete = 1):
 
 	return df_joined
 	
-def gen_diff(df, cols, period = 1):
+def gen_diff(df, cols = None, period = 1, cut_nan = True):
+
+	if cols == None:
+		cols = df.columns
 
 	"""
 	Generates '<col>_difference' columns, which for all column keys provided as a list represents the col[t] - col[t-period] values
@@ -58,13 +62,15 @@ def gen_diff(df, cols, period = 1):
 	param period: the distance (timestep) used to calculate each difference
 	type period: int
 	"""
-	
-	df_mod = copy.deepcopy(df)
-	
+		
+	df_mod = pd.DataFrame()
+
 	for col in cols:
 		diff_col_name = col + '_diff_' + str(period)
 		df_mod[diff_col_name] = df[col].diff(periods = period)
 		df_mod[diff_col_name] = df_mod[diff_col_name].shift(periods = -1*period) 
 
-	
+	if(cut_nan):
+		df_mod = df_mod.dropna()
+
 	return df_mod

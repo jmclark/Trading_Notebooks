@@ -4,8 +4,10 @@ from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
+sys.path.append("..")
 
-from .timeseries_preprocessing import ltsm_sequence_generator
+from preprocessing.preprocessing_timeseries import ltsm_sequence_generator
 
 def evaluate_performance(model, train_data_raw, test_data_raw, train_data_sm_sc, 
 							test_data_sm_sc, seq_length, y_col):
