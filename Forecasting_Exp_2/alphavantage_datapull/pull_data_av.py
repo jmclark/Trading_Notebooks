@@ -22,7 +22,7 @@ def pull_stock_fund_intraday_av(tickers_df, ts, base_cache):
             break
 
         # Check if data already exists
-        save_path_file = data_cache / (ticker + "_intraday.csv")
+        save_path_file = data_cache / (ticker + "_intraday_av.csv")
         if os.path.exists(save_path_file):
             print(colored("Data for " + ticker + " already exists", 'green'))
             continue
